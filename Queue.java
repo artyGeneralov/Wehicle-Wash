@@ -26,7 +26,7 @@ public class Queue<T> {
 		return count == 0;
 	}
 
-	public void enqueue(T item) {
+	public synchronized void enqueue(T item) {
 		if(this.count == this.max_size)
 		{
 			// enlarge array
@@ -39,7 +39,7 @@ public class Queue<T> {
 			do {
 				temp_arr[j] = queue_arr[i];
 				j++;
-				i = (i+1) % (max_size - 1); //old max_size
+				i = (i+1) % (max_size); //old max_size
 			}while(i != front);
 			this.back = j;
 			this.front = 0;
@@ -52,13 +52,13 @@ public class Queue<T> {
 		count++;
 	}
 
-	public T dequeue() throws Exception
+	public synchronized T dequeue() throws EmptyListException
 	{
 		if (isEmpty())
-			throw new Exception();
+			throw new EmptyListException();
 		T item = queue_arr[front];
 		queue_arr[front] = null;
-		front = (front + 1) % (max_size - 1);
+		front = (front + 1) % (max_size);
 		count--;
 		return item;
 	}

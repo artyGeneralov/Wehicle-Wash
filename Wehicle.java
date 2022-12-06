@@ -9,12 +9,18 @@ public abstract class Wehicle extends Thread {
 		this.washing_time = washing_time;
 	}
 
+	public String getPlateNumber() {
+		return this.plate_number;
+	}
+	
+	public double getWashingTime() {
+		return this.washing_time;
+	}
 	
 	@Override
 	public void run(){
 		// runnable
 		try {
-			System.out.printf("I'm %s, sleeping: %f\n",plate_number, washing_time);
 			Thread.sleep((long) washing_time);
 		} catch (InterruptedException e) {
 			System.err.println("Interrupted in Wehicle Class" + e);
